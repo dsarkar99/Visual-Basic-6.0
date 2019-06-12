@@ -12,7 +12,9 @@ Begin VB.Form Form4
    Begin VB.TextBox Text5 
       Alignment       =   2  'Center
       Height          =   375
+      IMEMode         =   3  'DISABLE
       Left            =   1260
+      PasswordChar    =   "*"
       TabIndex        =   10
       Top             =   5400
       Width           =   2175
@@ -28,7 +30,9 @@ Begin VB.Form Form4
    Begin VB.TextBox Text4 
       Alignment       =   2  'Center
       Height          =   375
+      IMEMode         =   3  'DISABLE
       Left            =   1260
+      PasswordChar    =   "*"
       TabIndex        =   7
       Top             =   4440
       Width           =   2175
@@ -185,11 +189,19 @@ lname = Text2.Text
 userid = Text3.Text
 pasd = Text4.Text
 rpasd = Text5.Text
-If (Len(fname) = 0 Or Len(lname) = 0 Or Len(userid) = 0 Or Len(fname) = 0 Or Len(fname) = 0) Then
+If (Len(fname) <> 0 And Len(lname) <> 0 And Len(userid) <> 0 And Len(pasd) <> 0 And Len(rpasd) <> 0) Then
 If pasd = rpasd Then
-MsgBox "Password Matched" & nam
-
-
+    sql = "Insert into table1 Values(' " & userid & " ',' " & pasd & " ',' " & fname & " ',' " & lname & " ') "
+    Set rs = cn.Execute(sql)
+MsgBox "User Created" & nam
+Form1.Visible = True
+Form4.Visible = False
+Else
+MsgBox "Password did't Match!"
+End If
+Else
+MsgBox "Please don't leave any fields empty!"
+End If
 End Sub
 
 Private Sub Form_Load()
@@ -198,6 +210,3 @@ Set cn = New ADODB.Connection
     cn.Open
 End Sub
 
-Private Sub Text5_Change()
-
-End Sub
