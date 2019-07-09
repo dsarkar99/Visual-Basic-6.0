@@ -2,35 +2,38 @@ VERSION 5.00
 Begin VB.Form Form1 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "LMS"
-   ClientHeight    =   5580
+   ClientHeight    =   4905
    ClientLeft      =   45
    ClientTop       =   390
-   ClientWidth     =   4590
+   ClientWidth     =   4230
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5580
-   ScaleWidth      =   4590
+   Picture         =   "signin.frx":0000
+   ScaleHeight     =   4905
+   ScaleWidth      =   4230
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton Command2 
-      Caption         =   "Cancel"
-      Height          =   495
-      Left            =   480
+      Caption         =   "Reset"
+      Height          =   255
+      Left            =   1680
       TabIndex        =   6
-      Top             =   3960
-      Width           =   1455
+      Top             =   3600
+      Width           =   855
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Submit"
       Height          =   495
-      Left            =   2520
+      Left            =   1560
       TabIndex        =   5
-      Top             =   3960
-      Width           =   1455
+      Top             =   3000
+      Width           =   1095
    End
    Begin VB.TextBox Text2 
       Alignment       =   2  'Center
+      BackColor       =   &H8000000B&
+      BorderStyle     =   0  'None
       BeginProperty DataFormat 
          Type            =   1
          Format          =   "*"
@@ -49,16 +52,18 @@ Begin VB.Form Form1
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   450
+      Height          =   315
       IMEMode         =   3  'DISABLE
-      Left            =   1080
+      Left            =   960
       PasswordChar    =   "*"
       TabIndex        =   3
-      Top             =   3000
+      Top             =   2400
       Width           =   2295
    End
    Begin VB.TextBox Text1 
       Alignment       =   2  'Center
+      BackColor       =   &H8000000B&
+      BorderStyle     =   0  'None
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   12
@@ -68,16 +73,24 @@ Begin VB.Form Form1
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   450
-      Left            =   1080
+      Height          =   315
+      Left            =   960
       TabIndex        =   2
-      Top             =   1920
+      Top             =   1440
       Width           =   2295
+   End
+   Begin VB.Label Label6 
+      Caption         =   "Label6"
+      Height          =   375
+      Left            =   720
+      TabIndex        =   9
+      Top             =   5520
+      Width           =   2415
    End
    Begin VB.Label Label5 
       Caption         =   "Label5"
       Height          =   375
-      Left            =   1080
+      Left            =   840
       TabIndex        =   8
       Top             =   6120
       Width           =   2175
@@ -86,12 +99,13 @@ Begin VB.Form Form1
       Alignment       =   2  'Center
       Caption         =   "New User , SIGN UP now?"
       Height          =   255
-      Left            =   720
+      Left            =   840
       TabIndex        =   7
-      Top             =   4800
-      Width           =   3015
+      Top             =   4200
+      Width           =   2535
    End
    Begin VB.Label Label3 
+      BackStyle       =   0  'Transparent
       Caption         =   "Password :"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -103,12 +117,13 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   1560
+      Left            =   1440
       TabIndex        =   4
-      Top             =   2640
+      Top             =   2040
       Width           =   1335
    End
    Begin VB.Label Label2 
+      BackStyle       =   0  'Transparent
       Caption         =   "User Id :"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -120,13 +135,14 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   1680
+      Left            =   1560
       TabIndex        =   1
-      Top             =   1560
+      Top             =   1080
       Width           =   975
    End
    Begin VB.Label Label1 
       Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
       Caption         =   "Library Management System"
       BeginProperty Font 
          Name            =   "Myriad Hebrew"
@@ -138,7 +154,7 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   495
-      Left            =   480
+      Left            =   240
       TabIndex        =   0
       Top             =   360
       Width           =   3735
@@ -153,6 +169,8 @@ Dim cn As ADODB.Connection
 Dim rs As ADODB.Recordset
 Dim fnam As String
 Dim lnam As String
+Dim act_id As String
+
 
 
 Private Sub Command1_Click()
@@ -165,14 +183,18 @@ Private Sub Command1_Click()
         c = c + 1
         fnam = rs.Fields("fname")
         lnam = rs.Fields("lname")
+        act_id = rs.Fields("act_id")
         Label5.Caption = fnam & " " & lnam
+        Label6.Caption = act_id
         rs.MoveNext
     Wend
     If c > 0 Then
      
-    MsgBox "Valid user " & nam
+    'MsgBox "Valid user " & nam
     Form1.Visible = "False"
     Form2.Visible = "True"
+    Text1.Text = ""
+    Text2.Text = ""
    
     Else
     MsgBox "Invalid User"
@@ -180,7 +202,8 @@ Private Sub Command1_Click()
 End Sub
 
 Private Sub Command2_Click()
-End
+    Text1.Text = ""
+    Text2.Text = ""
 End Sub
 
 Private Sub Form_Load()

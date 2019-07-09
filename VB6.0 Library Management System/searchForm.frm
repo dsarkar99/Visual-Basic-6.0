@@ -8,7 +8,7 @@ Begin VB.Form Form3
    LinkTopic       =   "Form3"
    ScaleHeight     =   4695
    ScaleWidth      =   11895
-   StartUpPosition =   3  'Windows Default
+   StartUpPosition =   2  'CenterScreen
    Begin VB.ListBox List1 
       Height          =   3765
       Left            =   6120
